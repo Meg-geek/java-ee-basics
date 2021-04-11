@@ -29,16 +29,17 @@ public class OsmReader {
 
             JAXBContext jc = JAXBContext.newInstance(Osm.class);
             Unmarshaller unmarshaller = jc.createUnmarshaller();
+
             Osm osm = (Osm) unmarshaller.unmarshal(xsr);
             LOG.debug("Osm successfully parsed");
             return osm;
         } catch (FileNotFoundException | CompressorException | XMLStreamException | JAXBException ex) {
             LOG.error("Error while reading osm file", ex);
+            throw new RuntimeException(ex);
         } catch (IOException ex) {
             LOG.error("Error closing osm file", ex);
+            throw new RuntimeException(ex);
         }
-        LOG.debug("Osm wasn't parsed, error happened");
-        return new Osm();
     }
 
     private static class OsmTypeReader extends StreamReaderDelegate {
@@ -54,6 +55,5 @@ public class OsmReader {
             }
             return super.getAttributeNamespace(arg0);
         }
-
     }
 }

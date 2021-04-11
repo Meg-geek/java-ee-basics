@@ -11,7 +11,8 @@ import java.io.FileNotFoundException;
 import java.io.InputStreamReader;
 
 public class ArchiveReader {
-    static BufferedReader getBufferedReaderForCompressedFile(String filePath) throws FileNotFoundException, CompressorException {
+    static BufferedReader getBufferedReaderForCompressedFile(String filePath)
+        throws FileNotFoundException, CompressorException {
         FileInputStream fin = new FileInputStream(filePath);
         BufferedInputStream bis = new BufferedInputStream(fin);
         CompressorInputStream input = new CompressorStreamFactory().createCompressorInputStream(bis);

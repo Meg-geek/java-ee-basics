@@ -25,15 +25,10 @@ repositories {
 
 dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.12'
-//
-//    compile group: 'javax.xml.bind', name: 'jaxb-api', version: '2.3.1'
-//    compile group: 'com.sun.xml.bind', name: 'jaxb-core', version: '2.3.0.1'
-//    compile group: 'com.sun.xml.bind', name: 'jaxb-impl', version: '2.3.1'
 
     xjc 'javax.xml.bind:jaxb-api:2.3.1'
     xjc 'org.glassfish.jaxb:jaxb-runtime:2.3.1'
     xjc 'org.glassfish.jaxb:jaxb-xjc:2.3.1'
-    // xjc 'javax.activation:activation:1.1.1'
 
     implementation "jakarta.xml.bind:jakarta.xml.bind-api:2.3.2"
     implementation "org.glassfish.jaxb:jaxb-runtime:2.3.2"
@@ -45,6 +40,16 @@ dependencies {
     implementation group: 'org.apache.logging.log4j', name: 'log4j-api', version: '2.13.3'
     implementation group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.13.3'
     implementation group: 'org.eclipse.persistence', name: 'org.eclipse.persistence.core', version: '2.5.0-RC2'
+
+    implementation group: 'org.postgresql', name: 'postgresql', version: '42.2.19'
+
+    compileOnly 'org.projectlombok:lombok:1.18.20'
+    annotationProcessor 'org.projectlombok:lombok:1.18.20'
+
+    implementation group: 'org.apache.commons', name: 'commons-collections4', version: '4.0'
+
+    compile group: 'org.openjdk.jmh', name: 'jmh-core', version: '1.19'
+    annotationProcessor group: 'org.openjdk.jmh', name: 'jmh-generator-annprocess', version: '1.19'
 }
 
 xjcGeneration {
