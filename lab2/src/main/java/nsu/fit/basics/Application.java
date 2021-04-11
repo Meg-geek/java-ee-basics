@@ -17,8 +17,7 @@ import java.sql.SQLException;
 public class Application {
     private static final Logger LOG = LoggerFactory.getLogger(Application.class);
 
-    public static void main(String[] args) throws SQLException, IOException, RunnerException {
-        org.openjdk.jmh.Main.main(args);
+    public static void main(String[] args) throws SQLException {
         try {
             Osm osm = new OsmReader().readOsmFile("RU-NVS.osm.bz2");
             DatabaseUtils.initDatabase();
