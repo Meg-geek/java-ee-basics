@@ -41,6 +41,7 @@ public class DatabaseUtils {
         connectionProps.put("password", password);
 
         Connection connection = DriverManager.getConnection(URL_CONNECTION, connectionProps);
+        connection.setAutoCommit(false);
         LOG.info("Connected to database");
         return connection;
     }
