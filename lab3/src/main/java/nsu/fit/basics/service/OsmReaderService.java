@@ -17,11 +17,8 @@ import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
 import javax.xml.stream.util.StreamReaderDelegate;
 import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStreamReader;
 
 @Service
 @RequiredArgsConstructor
@@ -41,9 +38,7 @@ public class OsmReaderService {
     private Osm readOsmFile(String filePath) {
         try (BufferedReader reader = ArchiveReader.getBufferedReaderForCompressedFile(filePath)) {
             XMLInputFactory xif = XMLInputFactory.newFactory();
-            //todo delete
-            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(new FileInputStream(new File("test.osm"))));
-            XMLStreamReader xsr = xif.createXMLStreamReader(bufferedReader);
+            XMLStreamReader xsr = xif.createXMLStreamReader(reader);
             xsr = new OsmTypeReader(xsr);
 
             JAXBContext jc = JAXBContext.newInstance(Osm.class);
