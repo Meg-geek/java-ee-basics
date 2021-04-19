@@ -3,6 +3,7 @@ drop table if exists way;
 drop table if exists relation;
 
 CREATE EXTENSION IF NOT EXISTS hstore;
+CREATE EXTENSION IF NOT EXISTS earthdistance cascade;
 
 create table node
 (

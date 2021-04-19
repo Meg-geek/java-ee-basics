@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.math.BigInteger;
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -55,6 +56,20 @@ class NodeServiceTest {
         deleteNode(saveNode(createSimpleNodeModel()));
     }
 
+    @Test
+    void testGetNearestNodesInRadius() {
+        double beginLat = 2.3;
+        List<NodeModel> nodes = List.of(createNodeWithLatitude(beginLat),
+            createNodeWithLatitude(++beginLat),
+            createNodeWithLatitude(++beginLat),
+            createNodeWithLatitude(++beginLat));
+        nodes.forEach(this::saveNode);
+        //4.3 -- 2.3 расстояние примерно 223
+        double radius = 223000;
+        List<NodeModel> nearestNodes = nodeService.getNearestNodesInRadius(2.3, 3.4, radius);
+        assertThat(nearestNodes).doesNotContain(nodes.get(3)).hasSize(3);
+    }
+
     private void deleteNode(NodeModel nodeToDelete) {
         BigInteger nodeId = nodeToDelete.getId();
         nodeService.deleteById(nodeId);
@@ -72,6 +87,12 @@ class NodeServiceTest {
             .user("user")
             .tags(tagsModel)
             .build();
+    }
+
+    private NodeModel createNodeWithLatitude(double latitude) {
+        NodeModel nodeModel = createSimpleNodeModel();
+        nodeModel.setLatitude(latitude);
+        return nodeModel;
     }
 
     private NodeModel saveNode(NodeModel nodeModel) {
